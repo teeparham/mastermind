@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 
-import Player from './player';
+import Bot from './bot';
 import Game from './game';
 
-const play = () => Game().play(Player())
+const play = () => Game().play(Bot())
 
 class Pick4 extends Component {
   render() {
@@ -16,6 +16,6 @@ class Pick4 extends Component {
   }
 }
 
-export { Player, Game, play, Pick4 }
+export { Bot, Game, play, Pick4 }
 
 render(<Pick4 />, document.getElementById('app'))

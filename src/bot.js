@@ -1,6 +1,6 @@
 import random from './random'
 
-export default function Player () {
+export default function Bot () {
   let guesses = [], // [ [1,2,3,4], [6,5,4,3], [1,1,1,1], ... ]
     responses = [], // [ [0,1], [1,2], [0,0], ...]
     possible = Array(4).fill().map( () => [1, 2, 3, 4, 5, 6] ),
