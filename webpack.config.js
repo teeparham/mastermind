@@ -5,6 +5,17 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     library: 'Mastermind',
-    path: path.resolve(__dirname, 'dist')
-  }
+    path: path.resolve(__dirname, 'dist'),
+  },
+  module: {
+    rules: [
+      {
+        exclude: /node_modules/,
+        use: ['babel-loader'],
+      }
+    ]
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
 };
