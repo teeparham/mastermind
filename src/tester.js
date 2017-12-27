@@ -1,9 +1,9 @@
 import Master from './master'
 
-export default function Game () {
+export default function Tester () {
   const master = Master()
 
-  function play(player) {
+  function run(player) {
     let response = [0, 0],
       count = 0,
       guess
@@ -18,5 +18,5 @@ export default function Game () {
     return ('*** Answer was ' + master.tell().toString())
   }
 
-  return { play: play }
+  return { run: run }
 }
