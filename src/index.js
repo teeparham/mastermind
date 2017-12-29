@@ -1,21 +1,18 @@
-import React, { Component } from 'react';
-import { render } from 'react-dom';
+import React from 'react'
+import { render } from 'react-dom'
 
-import Bot from './bot';
-import Tester from './tester';
+import Bot from './bot'
+import Tester from './tester'
+import Game from './game'
 
 const test = () => Tester().run(Bot())
 
-class Pick4 extends Component {
-  render() {
-    return (
-      <p className="f5 tc lh-copy">
-        Pick 4
-      </p>
-    );
-  }
+const P = (props) => {
+  return (
+    <div />
+  )
 }
 
-export { Bot, Tester, test, Pick4 }
+export { Bot, Tester, test, Game }
 
-render(<Pick4 />, document.getElementById('app'))
+render(<Game />, document.getElementById('app'))
