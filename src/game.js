@@ -1,21 +1,26 @@
 import React from 'react'
 import Master from './master'
 import ColorInput from './colorInput'
+import GuessList from './guessList'
 
 class Game extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       guess: [0, 0, 0, 0],
-      guesses: [],
-      master: Master(),
+      guesses: [], // array of 4-number arrays
     }
+    this.master = Master()
     this.handleGuess = this.handleGuess.bind(this)
     this.handleColorChange = this.handleColorChange.bind(this)
   }
 
-  handleGuess(guess) {
-    this.setState({ guesses: this.state.guesses.concat([guess]) })
+  handleGuess() {
+    if (this.state.guess.indexOf(0) >= 0) return
+    let newGuesses = this.state.guesses
+    newGuesses.push([this.state.guess])
+    this.setState({ guesses: newGuesses })
+    this.setState({ guess: [0, 0, 0, 0] })
   }
 
   handleColorChange(index) {
@@ -29,19 +34,19 @@ class Game extends React.Component {
   render () {
     return (
       <div className="tc">
-        <div className="f4 mb3">
-          answer: {this.state.master.tell()}
-        </div>
-        <div className="f5 mb3">
-          Click the thing
+        <div className="f6 mb4">
+          Click the circles to change colors, then click Guess
         </div>
         <ColorInput index={0} color={this.state.guess[0]} onColorChange={this.handleColorChange} />
         <ColorInput index={1} color={this.state.guess[1]} onColorChange={this.handleColorChange} />
         <ColorInput index={2} color={this.state.guess[2]} onColorChange={this.handleColorChange} />
         <ColorInput index={3} color={this.state.guess[3]} onColorChange={this.handleColorChange} />
-        <a className='pointer f4 dim br-pill ba bw2 ph3 pv3 mb2 ml2 dib dark-green bg-white v-mid'>
+        <a style={{userSelect: 'none'}}
+           className='pointer f4 dim br-pill ba bw2 ph3 pv3 mb2 ml2 dib dark-green bg-white v-mid'
+           onClick={this.handleGuess}>
           Guess
         </a>
+        <GuessList guesses={this.state.guesses} master={this.master} />
       </div>
     )
   }
