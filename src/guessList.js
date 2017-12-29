@@ -6,7 +6,7 @@ const GuessList = (props) => {
     <Guess guess={guess} key={index} master={props.master} />
   )
   return (
-    <ul>{items}</ul>
+    <div className='tc'>{items}</div>
   )
 }
 
