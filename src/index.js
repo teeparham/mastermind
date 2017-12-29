@@ -7,12 +7,6 @@ import Game from './game'
 
 const test = () => Tester().run(Bot())
 
-const P = (props) => {
-  return (
-    <div />
-  )
-}
-
 export { Bot, Tester, test, Game }
 
 render(<Game />, document.getElementById('app'))
