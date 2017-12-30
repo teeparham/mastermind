@@ -24,7 +24,7 @@ const CueList = (props) => {
 }
 
 const Guess = (props) => {
-  let guess = props.guess[0]
+  let guess = props.guess
   let check = props.master.check(guess)
   let right = check[0]
   let rightColor = check[1]
@@ -32,7 +32,7 @@ const Guess = (props) => {
 
   return (
     <div>
-    <div className='mh3 dib' />
+      <div className='mh3 dib' />
       <Dot color={guess[0]} />
       <Dot color={guess[1]} />
       <Dot color={guess[2]} />
