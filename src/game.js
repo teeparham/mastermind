@@ -37,15 +37,18 @@ class Game extends React.Component {
         <div className="f6 mb4">
           Click the circles to change colors, then click Guess
         </div>
-        <ColorInput index={0} color={this.state.guess[0]} onColorChange={this.handleColorChange} />
-        <ColorInput index={1} color={this.state.guess[1]} onColorChange={this.handleColorChange} />
-        <ColorInput index={2} color={this.state.guess[2]} onColorChange={this.handleColorChange} />
-        <ColorInput index={3} color={this.state.guess[3]} onColorChange={this.handleColorChange} />
-        <a style={{userSelect: 'none'}}
-           className='pointer f4 dim br-pill ba bw2 ph3 pv3 mb2 ml2 dib dark-green bg-white v-mid'
-           onClick={this.handleGuess}>
-          Guess
-        </a>
+        <div>
+          <ColorInput index={0} color={this.state.guess[0]} onColorChange={this.handleColorChange} />
+          <ColorInput index={1} color={this.state.guess[1]} onColorChange={this.handleColorChange} />
+          <ColorInput index={2} color={this.state.guess[2]} onColorChange={this.handleColorChange} />
+          <ColorInput index={3} color={this.state.guess[3]} onColorChange={this.handleColorChange} />
+          <div className='mh2 dib' />
+          <a style={{userSelect: 'none'}}
+             className='pointer f4 dim br-pill ba bw2 ph3 pv3 mb2 ml2 dib dark-green bg-white v-mid'
+             onClick={this.handleGuess}>
+            Guess
+          </a>          
+        </div>
         <GuessList guesses={this.state.guesses} master={this.master} />
       </div>
     )

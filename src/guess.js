@@ -32,6 +32,7 @@ const Guess = (props) => {
 
   return (
     <div>
+    <div className='mh3 dib' />
       <Dot color={guess[0]} />
       <Dot color={guess[1]} />
       <Dot color={guess[2]} />
