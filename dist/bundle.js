@@ -61,7 +61,7 @@ var Mastermind =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 15);
+/******/ 	return __webpack_require__(__webpack_require__.s = 17);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -259,6 +259,21 @@ process.umask = function() { return 0; };
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+if (process.env.NODE_ENV === 'production') {
+  module.exports = __webpack_require__(18);
+} else {
+  module.exports = __webpack_require__(19);
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 
 
 /**
@@ -297,7 +312,7 @@ emptyFunction.thatReturnsArgument = function (arg) {
 module.exports = emptyFunction;
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -394,7 +409,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -415,21 +430,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 module.exports = emptyObject;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-if (process.env.NODE_ENV === 'production') {
-  module.exports = __webpack_require__(16);
-} else {
-  module.exports = __webpack_require__(17);
-}
-
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
@@ -507,7 +507,7 @@ module.exports = invariant;
 
 
 
-var emptyFunction = __webpack_require__(1);
+var emptyFunction = __webpack_require__(2);
 
 /**
  * Similar to invariant but only logs a warning if the condition is not met.
@@ -578,7 +578,7 @@ module.exports = warning;
 if (process.env.NODE_ENV !== 'production') {
   var invariant = __webpack_require__(5);
   var warning = __webpack_require__(6);
-  var ReactPropTypesSecret = __webpack_require__(18);
+  var ReactPropTypesSecret = __webpack_require__(20);
   var loggedTypeFailures = {};
 }
 
@@ -683,7 +683,7 @@ module.exports = ExecutionEnvironment;
  * @typechecks
  */
 
-var emptyFunction = __webpack_require__(1);
+var emptyFunction = __webpack_require__(2);
 
 /**
  * Upstream version of event listener. Does not take into account specific
@@ -877,7 +877,7 @@ module.exports = shallowEqual;
  * 
  */
 
-var isTextNode = __webpack_require__(21);
+var isTextNode = __webpack_require__(23);
 
 /*eslint-disable no-bitwise */
 
@@ -960,69 +960,142 @@ function random(max) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Pick4 = exports.play = exports.Game = exports.Player = undefined;
+exports.default = Master;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _random = __webpack_require__(14);
 
-var _react = __webpack_require__(4);
+var _random2 = _interopRequireDefault(_random);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Master() {
+  var answer = Array(4).fill().map(function () {
+    return (0, _random2.default)(6);
+  }),
+      count = 0;
+
+  function check(guess) {
+    var rightColors = [];
+
+    function exactMatch(i) {
+      return guess[i] == answer[i] ? 1 : 0;
+    }
+
+    function exactlyRight() {
+      return [0, 1, 2, 3].map(function (i) {
+        return exactMatch(i);
+      }).reduce(function (a, b) {
+        return a + b;
+      });
+    }
+
+    function sameColor(guessIndex, answerIndex) {
+      if (exactMatch(answerIndex)) return 0;
+      if (rightColors.includes(answerIndex)) return 0;
+      if (guess[guessIndex] == answer[answerIndex]) {
+        rightColors.push(answerIndex);
+        return 1;
+      } else return 0;
+    }
+
+    function colorMatch(index) {
+      if (exactMatch(index)) {
+        return 0;
+      }
+      var others = [0, 1, 2, 3].filter(function (i) {
+        return i != index;
+      });
+      return sameColor(index, others[0]) || sameColor(index, others[1]) || sameColor(index, others[2]) || 0;
+    }
+
+    function rightColor() {
+      rightColors = [];
+      return [0, 1, 2, 3].map(function (i) {
+        return colorMatch(i);
+      }).reduce(function (a, b) {
+        return a + b;
+      });
+    }
+
+    count = count + 1;
+    return [exactlyRight(), rightColor()];
+  }
+
+  function tell() {
+    return answer;
+  }
+
+  function guesses() {
+    return count;
+  }
+
+  return {
+    check: check,
+    guesses: guesses,
+    tell: tell
+  };
+}
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var colors = ['gray', 'red', 'blue', 'green', 'white', 'yellow', 'purple'];
+
+exports.default = colors;
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Game = exports.test = exports.Tester = exports.Bot = undefined;
+
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(19);
+var _reactDom = __webpack_require__(21);
 
-var _player = __webpack_require__(28);
+var _bot = __webpack_require__(30);
 
-var _player2 = _interopRequireDefault(_player);
+var _bot2 = _interopRequireDefault(_bot);
 
-var _game = __webpack_require__(29);
+var _tester = __webpack_require__(31);
+
+var _tester2 = _interopRequireDefault(_tester);
+
+var _game = __webpack_require__(32);
 
 var _game2 = _interopRequireDefault(_game);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var play = function play() {
-  return (0, _game2.default)().play((0, _player2.default)());
+var test = function test() {
+  return (0, _tester2.default)().run((0, _bot2.default)());
 };
 
-var Pick4 = function (_Component) {
-  _inherits(Pick4, _Component);
-
-  function Pick4() {
-    _classCallCheck(this, Pick4);
-
-    return _possibleConstructorReturn(this, (Pick4.__proto__ || Object.getPrototypeOf(Pick4)).apply(this, arguments));
-  }
-
-  _createClass(Pick4, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'p',
-        { className: 'f5 tc lh-copy' },
-        'Pick 4'
-      );
-    }
-  }]);
-
-  return Pick4;
-}(_react.Component);
-
-exports.Player = _player2.default;
+exports.Bot = _bot2.default;
+exports.Tester = _tester2.default;
+exports.test = test;
 exports.Game = _game2.default;
-exports.play = play;
-exports.Pick4 = Pick4;
 
 
-(0, _reactDom.render)(_react2.default.createElement(Pick4, null), document.getElementById('app'));
+(0, _reactDom.render)(_react2.default.createElement(_game2.default, null), document.getElementById('app'));
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1035,7 +1108,7 @@ exports.Pick4 = Pick4;
  * LICENSE file in the root directory of this source tree.
  */
 
-var m=__webpack_require__(2),n=__webpack_require__(3),p=__webpack_require__(1),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.call"):60104,u=q?Symbol["for"]("react.return"):60105,v=q?Symbol["for"]("react.portal"):60106,w=q?Symbol["for"]("react.fragment"):60107,x="function"===typeof Symbol&&Symbol.iterator;
+var m=__webpack_require__(3),n=__webpack_require__(4),p=__webpack_require__(2),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.call"):60104,u=q?Symbol["for"]("react.return"):60105,v=q?Symbol["for"]("react.portal"):60106,w=q?Symbol["for"]("react.fragment"):60107,x="function"===typeof Symbol&&Symbol.iterator;
 function y(a){for(var b=arguments.length-1,e="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,c=0;c<b;c++)e+="\x26args[]\x3d"+encodeURIComponent(arguments[c+1]);b=Error(e+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}
 var z={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}};function A(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}A.prototype.isReactComponent={};A.prototype.setState=function(a,b){"object"!==typeof a&&"function"!==typeof a&&null!=a?y("85"):void 0;this.updater.enqueueSetState(this,a,b,"setState")};A.prototype.forceUpdate=function(a){this.updater.enqueueForceUpdate(this,a,"forceUpdate")};
 function B(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}function C(){}C.prototype=A.prototype;var D=B.prototype=new C;D.constructor=B;m(D,A.prototype);D.isPureReactComponent=!0;function E(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}var F=E.prototype=new C;F.constructor=E;m(F,A.prototype);F.unstable_isAsyncReactComponent=!0;F.render=function(){return this.props.children};var G={current:null},H=Object.prototype.hasOwnProperty,I={key:!0,ref:!0,__self:!0,__source:!0};
@@ -1050,7 +1123,7 @@ isValidElement:K,version:"16.2.0",__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_F
 
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1071,11 +1144,11 @@ if (process.env.NODE_ENV !== "production") {
   (function() {
 'use strict';
 
-var _assign = __webpack_require__(2);
-var emptyObject = __webpack_require__(3);
+var _assign = __webpack_require__(3);
+var emptyObject = __webpack_require__(4);
 var invariant = __webpack_require__(5);
 var warning = __webpack_require__(6);
-var emptyFunction = __webpack_require__(1);
+var emptyFunction = __webpack_require__(2);
 var checkPropTypes = __webpack_require__(7);
 
 // TODO: this is special because it gets imported during build.
@@ -2415,7 +2488,7 @@ module.exports = react;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2434,7 +2507,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2472,15 +2545,15 @@ if (process.env.NODE_ENV === 'production') {
   // DCE check should happen before ReactDOM bundle executes so that
   // DevTools can report bad minification during injection.
   checkDCE();
-  module.exports = __webpack_require__(20);
+  module.exports = __webpack_require__(22);
 } else {
-  module.exports = __webpack_require__(23);
+  module.exports = __webpack_require__(25);
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2496,7 +2569,7 @@ if (process.env.NODE_ENV === 'production') {
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(4),l=__webpack_require__(8),B=__webpack_require__(2),C=__webpack_require__(1),ba=__webpack_require__(9),da=__webpack_require__(10),ea=__webpack_require__(11),fa=__webpack_require__(12),ia=__webpack_require__(13),D=__webpack_require__(3);
+var aa=__webpack_require__(1),l=__webpack_require__(8),B=__webpack_require__(3),C=__webpack_require__(2),ba=__webpack_require__(9),da=__webpack_require__(10),ea=__webpack_require__(11),fa=__webpack_require__(12),ia=__webpack_require__(13),D=__webpack_require__(4);
 function E(a){for(var b=arguments.length-1,c="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,d=0;d<b;d++)c+="\x26args[]\x3d"+encodeURIComponent(arguments[d+1]);b=Error(c+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}aa?void 0:E("227");
 var oa={children:!0,dangerouslySetInnerHTML:!0,defaultValue:!0,defaultChecked:!0,innerHTML:!0,suppressContentEditableWarning:!0,suppressHydrationWarning:!0,style:!0};function pa(a,b){return(a&b)===b}
 var ta={MUST_USE_PROPERTY:1,HAS_BOOLEAN_VALUE:4,HAS_NUMERIC_VALUE:8,HAS_POSITIVE_NUMERIC_VALUE:24,HAS_OVERLOADED_BOOLEAN_VALUE:32,HAS_STRING_BOOLEAN_VALUE:64,injectDOMPropertyConfig:function(a){var b=ta,c=a.Properties||{},d=a.DOMAttributeNamespaces||{},e=a.DOMAttributeNames||{};a=a.DOMMutationMethods||{};for(var f in c){ua.hasOwnProperty(f)?E("48",f):void 0;var g=f.toLowerCase(),h=c[f];g={attributeName:g,attributeNamespace:null,propertyName:f,mutationMethod:null,mustUseProperty:pa(h,b.MUST_USE_PROPERTY),
@@ -2716,7 +2789,7 @@ Z.injectIntoDevTools({findFiberByHostInstance:pb,bundleType:0,version:"16.2.0",r
 
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2731,7 +2804,7 @@ Z.injectIntoDevTools({findFiberByHostInstance:pb,bundleType:0,version:"16.2.0",r
  * @typechecks
  */
 
-var isNode = __webpack_require__(22);
+var isNode = __webpack_require__(24);
 
 /**
  * @param {*} object The object to check.
@@ -2744,7 +2817,7 @@ function isTextNode(object) {
 module.exports = isTextNode;
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2772,7 +2845,7 @@ function isNode(object) {
 module.exports = isNode;
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2793,21 +2866,21 @@ if (process.env.NODE_ENV !== "production") {
   (function() {
 'use strict';
 
-var React = __webpack_require__(4);
+var React = __webpack_require__(1);
 var invariant = __webpack_require__(5);
 var warning = __webpack_require__(6);
 var ExecutionEnvironment = __webpack_require__(8);
-var _assign = __webpack_require__(2);
-var emptyFunction = __webpack_require__(1);
+var _assign = __webpack_require__(3);
+var emptyFunction = __webpack_require__(2);
 var EventListener = __webpack_require__(9);
 var getActiveElement = __webpack_require__(10);
 var shallowEqual = __webpack_require__(11);
 var containsNode = __webpack_require__(12);
 var focusNode = __webpack_require__(13);
-var emptyObject = __webpack_require__(3);
+var emptyObject = __webpack_require__(4);
 var checkPropTypes = __webpack_require__(7);
-var hyphenateStyleName = __webpack_require__(24);
-var camelizeStyleName = __webpack_require__(26);
+var hyphenateStyleName = __webpack_require__(26);
+var camelizeStyleName = __webpack_require__(28);
 
 /**
  * WARNING: DO NOT manually require this module.
@@ -18174,7 +18247,7 @@ module.exports = reactDom;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18189,7 +18262,7 @@ module.exports = reactDom;
 
 
 
-var hyphenate = __webpack_require__(25);
+var hyphenate = __webpack_require__(27);
 
 var msPattern = /^ms-/;
 
@@ -18216,7 +18289,7 @@ function hyphenateStyleName(string) {
 module.exports = hyphenateStyleName;
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18252,7 +18325,7 @@ function hyphenate(string) {
 module.exports = hyphenate;
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18267,7 +18340,7 @@ module.exports = hyphenate;
 
 
 
-var camelize = __webpack_require__(27);
+var camelize = __webpack_require__(29);
 
 var msPattern = /^-ms-/;
 
@@ -18295,7 +18368,7 @@ function camelizeStyleName(string) {
 module.exports = camelizeStyleName;
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18330,7 +18403,7 @@ function camelize(string) {
 module.exports = camelize;
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18339,7 +18412,7 @@ module.exports = camelize;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = Player;
+exports.default = Bot;
 
 var _random = __webpack_require__(14);
 
@@ -18347,7 +18420,7 @@ var _random2 = _interopRequireDefault(_random);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function Player() {
+function Bot() {
   var guesses = [],
       // [ [1,2,3,4], [6,5,4,3], [1,1,1,1], ... ]
   responses = [],
@@ -18443,7 +18516,7 @@ function Player() {
 }
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18452,18 +18525,18 @@ function Player() {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = Game;
+exports.default = Tester;
 
-var _master = __webpack_require__(30);
+var _master = __webpack_require__(15);
 
 var _master2 = _interopRequireDefault(_master);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function Game() {
+function Tester() {
   var master = (0, _master2.default)();
 
-  function play(player) {
+  function run(player) {
     var response = [0, 0],
         count = 0,
         guess = void 0;
@@ -18478,11 +18551,11 @@ function Game() {
     return '*** Answer was ' + master.tell().toString();
   }
 
-  return { play: play };
+  return { run: run };
 }
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18491,81 +18564,368 @@ function Game() {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = Master;
 
-var _random = __webpack_require__(14);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _random2 = _interopRequireDefault(_random);
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _master = __webpack_require__(15);
+
+var _master2 = _interopRequireDefault(_master);
+
+var _colorInput = __webpack_require__(33);
+
+var _colorInput2 = _interopRequireDefault(_colorInput);
+
+var _guessList = __webpack_require__(34);
+
+var _guessList2 = _interopRequireDefault(_guessList);
+
+var _gameOver = __webpack_require__(36);
+
+var _gameOver2 = _interopRequireDefault(_gameOver);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function Master() {
-  var answer = Array(4).fill().map(function () {
-    return (0, _random2.default)(6);
-  }),
-      count = 0;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  function check(guess) {
-    var rightColors = [];
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-    function exactMatch(i) {
-      return guess[i] == answer[i] ? 1 : 0;
-    }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-    function exactlyRight() {
-      return [0, 1, 2, 3].map(function (i) {
-        return exactMatch(i);
-      }).reduce(function (a, b) {
-        return a + b;
-      });
-    }
+var Game = function (_React$Component) {
+  _inherits(Game, _React$Component);
 
-    function sameColor(guessIndex, answerIndex) {
-      if (exactMatch(answerIndex)) return 0;
-      if (rightColors.includes(answerIndex)) return 0;
-      if (guess[guessIndex] == answer[answerIndex]) {
-        rightColors.push(answerIndex);
-        return 1;
-      } else return 0;
-    }
+  function Game(props) {
+    _classCallCheck(this, Game);
 
-    function colorMatch(index) {
-      if (exactMatch(index)) {
-        return 0;
-      }
-      var others = [0, 1, 2, 3].filter(function (i) {
-        return i != index;
-      });
-      return sameColor(index, others[0]) || sameColor(index, others[1]) || sameColor(index, others[2]) || 0;
-    }
+    var _this = _possibleConstructorReturn(this, (Game.__proto__ || Object.getPrototypeOf(Game)).call(this, props));
 
-    function rightColor() {
-      rightColors = [];
-      return [0, 1, 2, 3].map(function (i) {
-        return colorMatch(i);
-      }).reduce(function (a, b) {
-        return a + b;
-      });
-    }
-
-    count = count + 1;
-    return [exactlyRight(), rightColor()];
+    _this.state = {
+      guess: [0, 0, 0, 0],
+      guesses: [], // array of 4-number arrays
+      won: false
+    };
+    _this.master = (0, _master2.default)();
+    _this.handleGuess = _this.handleGuess.bind(_this);
+    _this.handleColorChange = _this.handleColorChange.bind(_this);
+    return _this;
   }
 
-  function tell() {
-    return answer;
+  _createClass(Game, [{
+    key: 'handleGuess',
+    value: function handleGuess() {
+      if (this.state.guess.indexOf(0) >= 0) return;
+      if (this.state.guesses.length == 10) return;
+      if (this.state.won) return;
+      var newGuesses = this.state.guesses;
+      newGuesses.push(this.state.guess);
+      this.setState({ guesses: newGuesses });
+      this.setState({ guess: [0, 0, 0, 0] });
+      this.setState({ won: this.master.check(this.state.guess).toString() == '4,0' });
+    }
+  }, {
+    key: 'handleColorChange',
+    value: function handleColorChange(index) {
+      var newColor = this.state.guess[index] + 1;
+      if (newColor > 6) newColor = 1;
+      var newGuess = this.state.guess;
+      newGuess.splice(index, 1, newColor);
+      this.setState({ guess: newGuess });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'tc' },
+        _react2.default.createElement(
+          'div',
+          { className: 'f6 mb4' },
+          'Guess the pattern of four colored dots. Click the circles to change colors, then click Guess. For each dot in the right color and in the right position, a red box is shown. For each dot of the right color but in the wrong position, a white dot is shown.',
+          _react2.default.createElement(
+            'a',
+            { className: 'ml2 link white', href: 'https://en.wikipedia.org/wiki/Mastermind_(board_game)' },
+            'Read more'
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(_colorInput2.default, { index: 0, color: this.state.guess[0], onColorChange: this.handleColorChange }),
+          _react2.default.createElement(_colorInput2.default, { index: 1, color: this.state.guess[1], onColorChange: this.handleColorChange }),
+          _react2.default.createElement(_colorInput2.default, { index: 2, color: this.state.guess[2], onColorChange: this.handleColorChange }),
+          _react2.default.createElement(_colorInput2.default, { index: 3, color: this.state.guess[3], onColorChange: this.handleColorChange }),
+          _react2.default.createElement('div', { className: 'mh2 dib' }),
+          _react2.default.createElement(
+            'a',
+            { style: { userSelect: 'none' },
+              className: 'pointer f4 dim br-pill ba bw2 ph3 pv3 mb2 ml2 dib dark-green bg-white v-mid',
+              onClick: this.handleGuess },
+            'Guess'
+          )
+        ),
+        _react2.default.createElement(_guessList2.default, { guesses: this.state.guesses, master: this.master }),
+        _react2.default.createElement(_gameOver2.default, { count: this.state.guesses.length, won: this.state.won })
+      );
+    }
+  }]);
+
+  return Game;
+}(_react2.default.Component);
+
+exports.default = Game;
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _colors = __webpack_require__(16);
+
+var _colors2 = _interopRequireDefault(_colors);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ColorInput = function (_React$Component) {
+  _inherits(ColorInput, _React$Component);
+
+  function ColorInput(props) {
+    _classCallCheck(this, ColorInput);
+
+    var _this = _possibleConstructorReturn(this, (ColorInput.__proto__ || Object.getPrototypeOf(ColorInput)).call(this, props));
+
+    _this.handleChange = _this.handleChange.bind(_this);
+    return _this;
   }
 
-  function guesses() {
-    return count;
-  }
+  _createClass(ColorInput, [{
+    key: 'handleChange',
+    value: function handleChange() {
+      this.props.onColorChange(this.props.index);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var color = _colors2.default[this.props.color];
+      return _react2.default.createElement(
+        'a',
+        { style: { fontSize: 0 },
+          className: 'pointer br-pill ba bw2 ph4 pv4 mb2 mh1 dib v-mid black bg-' + color,
+          onClick: this.handleChange },
+        '\xA0'
+      );
+    }
+  }]);
 
-  return {
-    check: check,
-    guesses: guesses,
-    tell: tell
-  };
-}
+  return ColorInput;
+}(_react2.default.Component);
+
+exports.default = ColorInput;
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _guess = __webpack_require__(35);
+
+var _guess2 = _interopRequireDefault(_guess);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var GuessList = function GuessList(props) {
+  var items = props.guesses.map(function (guess, index) {
+    return _react2.default.createElement(_guess2.default, { guess: guess, key: index, master: props.master });
+  });
+  return _react2.default.createElement(
+    'div',
+    { className: 'tc' },
+    items
+  );
+};
+
+exports.default = GuessList;
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _colors = __webpack_require__(16);
+
+var _colors2 = _interopRequireDefault(_colors);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var Dot = function Dot(props) {
+  return _react2.default.createElement(
+    'div',
+    { className: 'br-pill ba bw2 ph3 pv2 mb2 mh3 dib v-mid black bg-' + _colors2.default[props.color] },
+    '\xA0'
+  );
+};
+
+var Cue = function Cue(props) {
+  return _react2.default.createElement(
+    'div',
+    { className: 'ba bw2 ph2 mb2 mh1 dib v-mid black bg-' + _colors2.default[props.color] },
+    '\xA0'
+  );
+};
+
+var CueList = function CueList(props) {
+  return [].concat(_toConsumableArray(Array(props.n))).map(function (e, i) {
+    return _react2.default.createElement(Cue, { color: props.color, key: i });
+  });
+};
+
+var Guess = function Guess(props) {
+  var guess = props.guess;
+  var check = props.master.check(guess);
+  var right = check[0];
+  var rightColor = check[1];
+  var wrong = 4 - right - rightColor;
+
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement('div', { className: 'mh3 dib' }),
+    _react2.default.createElement(Dot, { color: guess[0] }),
+    _react2.default.createElement(Dot, { color: guess[1] }),
+    _react2.default.createElement(Dot, { color: guess[2] }),
+    _react2.default.createElement(Dot, { color: guess[3] }),
+    _react2.default.createElement('div', { className: 'mh3 dib' }),
+    _react2.default.createElement(CueList, { n: wrong, color: '0' }),
+    _react2.default.createElement(CueList, { n: rightColor, color: '4' }),
+    _react2.default.createElement(CueList, { n: right, color: '1' })
+  );
+};
+
+exports.default = Guess;
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Winner = function Winner(props) {
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement(
+      'h2',
+      { className: 'f1 pv3 bg-pink' },
+      _react2.default.createElement(
+        'span',
+        { className: 'purple mh1' },
+        'W'
+      ),
+      _react2.default.createElement(
+        'span',
+        { className: 'green mh1' },
+        'i'
+      ),
+      _react2.default.createElement(
+        'span',
+        { className: 'blue mh1' },
+        'n'
+      ),
+      _react2.default.createElement(
+        'span',
+        { className: 'orange mh1' },
+        'n'
+      ),
+      _react2.default.createElement(
+        'span',
+        { className: 'dark-green mh1' },
+        'e'
+      ),
+      _react2.default.createElement(
+        'span',
+        { className: 'red mh1' },
+        'r'
+      ),
+      _react2.default.createElement(
+        'span',
+        { className: 'yellow mh1' },
+        '!'
+      )
+    )
+  );
+};
+
+var Loser = function Loser(props) {
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement(
+      'h2',
+      { className: 'f1 pv3 bg-yellow dark-gray' },
+      'Loser!'
+    )
+  );
+};
+
+var GameOver = function GameOver(props) {
+  if (props.won) return _react2.default.createElement(Winner, { count: props.count });else if (props.count == 10) return _react2.default.createElement(Loser, null);else return null;
+};
+
+exports.default = GameOver;
 
 /***/ })
 /******/ ]);
