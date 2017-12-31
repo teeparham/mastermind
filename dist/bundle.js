@@ -61,7 +61,7 @@ var Mastermind =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 18);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -262,9 +262,9 @@ process.umask = function() { return 0; };
 /* WEBPACK VAR INJECTION */(function(process) {
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports = __webpack_require__(18);
-} else {
   module.exports = __webpack_require__(19);
+} else {
+  module.exports = __webpack_require__(20);
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
@@ -578,7 +578,7 @@ module.exports = warning;
 if (process.env.NODE_ENV !== 'production') {
   var invariant = __webpack_require__(5);
   var warning = __webpack_require__(6);
-  var ReactPropTypesSecret = __webpack_require__(20);
+  var ReactPropTypesSecret = __webpack_require__(21);
   var loggedTypeFailures = {};
 }
 
@@ -877,7 +877,7 @@ module.exports = shallowEqual;
  * 
  */
 
-var isTextNode = __webpack_require__(23);
+var isTextNode = __webpack_require__(24);
 
 /*eslint-disable no-bitwise */
 
@@ -1046,12 +1046,77 @@ function Master() {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _colors = __webpack_require__(17);
+
+var _colors2 = _interopRequireDefault(_colors);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ColorInput = function (_React$Component) {
+  _inherits(ColorInput, _React$Component);
+
+  function ColorInput(props) {
+    _classCallCheck(this, ColorInput);
+
+    var _this = _possibleConstructorReturn(this, (ColorInput.__proto__ || Object.getPrototypeOf(ColorInput)).call(this, props));
+
+    _this.handleChange = _this.handleChange.bind(_this);
+    return _this;
+  }
+
+  _createClass(ColorInput, [{
+    key: 'handleChange',
+    value: function handleChange() {
+      if (this.props.onColorChange) this.props.onColorChange(this.props.index);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var color = _colors2.default[this.props.color];
+      return _react2.default.createElement(
+        'a',
+        { style: { fontSize: 0 },
+          className: 'pointer br-pill ba bw2 ph4 pv4 mb2 mh1 dib v-mid black bg-' + color,
+          onClick: this.handleChange },
+        '\xA0'
+      );
+    }
+  }]);
+
+  return ColorInput;
+}(_react2.default.Component);
+
+exports.default = ColorInput;
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 var colors = ['gray', 'red', 'blue', 'green', 'white', 'yellow', 'purple'];
 
 exports.default = colors;
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1066,17 +1131,17 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(21);
+var _reactDom = __webpack_require__(22);
 
-var _bot = __webpack_require__(30);
+var _bot = __webpack_require__(31);
 
 var _bot2 = _interopRequireDefault(_bot);
 
-var _tester = __webpack_require__(31);
+var _tester = __webpack_require__(32);
 
 var _tester2 = _interopRequireDefault(_tester);
 
-var _game = __webpack_require__(32);
+var _game = __webpack_require__(33);
 
 var _game2 = _interopRequireDefault(_game);
 
@@ -1095,7 +1160,7 @@ exports.Game = _game2.default;
 (0, _reactDom.render)(_react2.default.createElement(_game2.default, null), document.getElementById('app'));
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1123,7 +1188,7 @@ isValidElement:K,version:"16.2.0",__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_F
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2488,7 +2553,7 @@ module.exports = react;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2507,7 +2572,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2545,15 +2610,15 @@ if (process.env.NODE_ENV === 'production') {
   // DCE check should happen before ReactDOM bundle executes so that
   // DevTools can report bad minification during injection.
   checkDCE();
-  module.exports = __webpack_require__(22);
+  module.exports = __webpack_require__(23);
 } else {
-  module.exports = __webpack_require__(25);
+  module.exports = __webpack_require__(26);
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2789,7 +2854,7 @@ Z.injectIntoDevTools({findFiberByHostInstance:pb,bundleType:0,version:"16.2.0",r
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2804,7 +2869,7 @@ Z.injectIntoDevTools({findFiberByHostInstance:pb,bundleType:0,version:"16.2.0",r
  * @typechecks
  */
 
-var isNode = __webpack_require__(24);
+var isNode = __webpack_require__(25);
 
 /**
  * @param {*} object The object to check.
@@ -2817,7 +2882,7 @@ function isTextNode(object) {
 module.exports = isTextNode;
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2845,7 +2910,7 @@ function isNode(object) {
 module.exports = isNode;
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2879,8 +2944,8 @@ var containsNode = __webpack_require__(12);
 var focusNode = __webpack_require__(13);
 var emptyObject = __webpack_require__(4);
 var checkPropTypes = __webpack_require__(7);
-var hyphenateStyleName = __webpack_require__(26);
-var camelizeStyleName = __webpack_require__(28);
+var hyphenateStyleName = __webpack_require__(27);
+var camelizeStyleName = __webpack_require__(29);
 
 /**
  * WARNING: DO NOT manually require this module.
@@ -18247,7 +18312,7 @@ module.exports = reactDom;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18262,7 +18327,7 @@ module.exports = reactDom;
 
 
 
-var hyphenate = __webpack_require__(27);
+var hyphenate = __webpack_require__(28);
 
 var msPattern = /^ms-/;
 
@@ -18289,7 +18354,7 @@ function hyphenateStyleName(string) {
 module.exports = hyphenateStyleName;
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18325,7 +18390,7 @@ function hyphenate(string) {
 module.exports = hyphenate;
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18340,7 +18405,7 @@ module.exports = hyphenate;
 
 
 
-var camelize = __webpack_require__(29);
+var camelize = __webpack_require__(30);
 
 var msPattern = /^-ms-/;
 
@@ -18368,7 +18433,7 @@ function camelizeStyleName(string) {
 module.exports = camelizeStyleName;
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18403,7 +18468,7 @@ function camelize(string) {
 module.exports = camelize;
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18516,7 +18581,7 @@ function Bot() {
 }
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18555,7 +18620,7 @@ function Tester() {
 }
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18575,7 +18640,7 @@ var _master = __webpack_require__(15);
 
 var _master2 = _interopRequireDefault(_master);
 
-var _colorInput = __webpack_require__(33);
+var _colorInput = __webpack_require__(16);
 
 var _colorInput2 = _interopRequireDefault(_colorInput);
 
@@ -18603,18 +18668,24 @@ var Game = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Game.__proto__ || Object.getPrototypeOf(Game)).call(this, props));
 
-    _this.state = {
-      guess: [0, 0, 0, 0],
-      guesses: [], // array of 4-number arrays
-      won: false
-    };
-    _this.master = (0, _master2.default)();
+    _this.state = _this.newGameState();
     _this.handleGuess = _this.handleGuess.bind(_this);
     _this.handleColorChange = _this.handleColorChange.bind(_this);
+    _this.playAgain = _this.playAgain.bind(_this);
     return _this;
   }
 
   _createClass(Game, [{
+    key: 'newGameState',
+    value: function newGameState() {
+      return {
+        guess: [1, 1, 1, 1],
+        guesses: [], // array of 4-number arrays
+        master: (0, _master2.default)(),
+        won: false
+      };
+    }
+  }, {
     key: 'handleGuess',
     value: function handleGuess() {
       if (this.state.guess.indexOf(0) >= 0) return;
@@ -18623,8 +18694,8 @@ var Game = function (_React$Component) {
       var newGuesses = this.state.guesses;
       newGuesses.push(this.state.guess);
       this.setState({ guesses: newGuesses });
-      this.setState({ guess: [0, 0, 0, 0] });
-      this.setState({ won: this.master.check(this.state.guess).toString() == '4,0' });
+      this.setState({ guess: [1, 1, 1, 1] });
+      this.setState({ won: this.state.master.check(this.state.guess).toString() == '4,0' });
     }
   }, {
     key: 'handleColorChange',
@@ -18636,6 +18707,11 @@ var Game = function (_React$Component) {
       this.setState({ guess: newGuess });
     }
   }, {
+    key: 'playAgain',
+    value: function playAgain() {
+      this.setState(this.newGameState());
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -18644,7 +18720,7 @@ var Game = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'f6 mb4' },
-          'Guess the pattern of four colored dots. Click the circles to change colors, then click Guess. For each dot in the right color and in the right position, a red box is shown. For each dot of the right color but in the wrong position, a white dot is shown.',
+          'Guess the pattern of four colored dots. Click the circles to change colors, then click Guess. For each dot in the right color and in the right position, a red box is shown. For each dot of the right color but in the wrong position, a white box is shown.',
           _react2.default.createElement(
             'a',
             { className: 'ml2 link white', href: 'https://en.wikipedia.org/wiki/Mastermind_(board_game)' },
@@ -18667,8 +18743,12 @@ var Game = function (_React$Component) {
             'Guess'
           )
         ),
-        _react2.default.createElement(_guessList2.default, { guesses: this.state.guesses, master: this.master }),
-        _react2.default.createElement(_gameOver2.default, { count: this.state.guesses.length, won: this.state.won })
+        _react2.default.createElement(_guessList2.default, { guesses: this.state.guesses, master: this.state.master }),
+        _react2.default.createElement(_gameOver2.default, {
+          count: this.state.guesses.length,
+          won: this.state.won,
+          answer: this.state.master.tell(),
+          onPlayAgain: this.playAgain })
       );
     }
   }]);
@@ -18677,71 +18757,6 @@ var Game = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Game;
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _colors = __webpack_require__(16);
-
-var _colors2 = _interopRequireDefault(_colors);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ColorInput = function (_React$Component) {
-  _inherits(ColorInput, _React$Component);
-
-  function ColorInput(props) {
-    _classCallCheck(this, ColorInput);
-
-    var _this = _possibleConstructorReturn(this, (ColorInput.__proto__ || Object.getPrototypeOf(ColorInput)).call(this, props));
-
-    _this.handleChange = _this.handleChange.bind(_this);
-    return _this;
-  }
-
-  _createClass(ColorInput, [{
-    key: 'handleChange',
-    value: function handleChange() {
-      this.props.onColorChange(this.props.index);
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var color = _colors2.default[this.props.color];
-      return _react2.default.createElement(
-        'a',
-        { style: { fontSize: 0 },
-          className: 'pointer br-pill ba bw2 ph4 pv4 mb2 mh1 dib v-mid black bg-' + color,
-          onClick: this.handleChange },
-        '\xA0'
-      );
-    }
-  }]);
-
-  return ColorInput;
-}(_react2.default.Component);
-
-exports.default = ColorInput;
 
 /***/ }),
 /* 34 */
@@ -18792,7 +18807,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _colors = __webpack_require__(16);
+var _colors = __webpack_require__(17);
 
 var _colors2 = _interopRequireDefault(_colors);
 
@@ -18857,11 +18872,23 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _colorInput = __webpack_require__(16);
+
+var _colorInput2 = _interopRequireDefault(_colorInput);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Winner = function Winner(props) {
   return _react2.default.createElement(
@@ -18914,16 +18941,98 @@ var Loser = function Loser(props) {
     'div',
     null,
     _react2.default.createElement(
-      'h2',
-      { className: 'f1 pv3 bg-yellow dark-gray' },
-      'Loser!'
-    )
+      'div',
+      { className: 'mv4 bg-yellow dark-gray' },
+      _react2.default.createElement(
+        'h2',
+        { className: 'f1 mv0 pt3' },
+        'Loser!'
+      ),
+      _react2.default.createElement(
+        'h5',
+        { className: 'f4 mt3 mb0 pb4' },
+        'The answer was'
+      )
+    ),
+    _react2.default.createElement(_colorInput2.default, { index: 0, color: props.answer[0] }),
+    _react2.default.createElement(_colorInput2.default, { index: 1, color: props.answer[1] }),
+    _react2.default.createElement(_colorInput2.default, { index: 2, color: props.answer[2] }),
+    _react2.default.createElement(_colorInput2.default, { index: 3, color: props.answer[3] })
   );
 };
 
-var GameOver = function GameOver(props) {
-  if (props.won) return _react2.default.createElement(Winner, { count: props.count });else if (props.count == 10) return _react2.default.createElement(Loser, null);else return null;
-};
+var PlayAgain = function (_React$Component) {
+  _inherits(PlayAgain, _React$Component);
+
+  function PlayAgain(props) {
+    _classCallCheck(this, PlayAgain);
+
+    var _this = _possibleConstructorReturn(this, (PlayAgain.__proto__ || Object.getPrototypeOf(PlayAgain)).call(this, props));
+
+    _this.handlePlayAgain = _this.handlePlayAgain.bind(_this);
+    return _this;
+  }
+
+  _createClass(PlayAgain, [{
+    key: 'handlePlayAgain',
+    value: function handlePlayAgain() {
+      this.props.onPlayAgain();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'mv3' },
+        _react2.default.createElement(
+          'a',
+          { onClick: this.handlePlayAgain,
+            className: 'pointer f4 dim br-pill ba bw2 ph3 pv3 mb2 ml2 dib dark-red bg-white v-mid' },
+          'Play Again'
+        )
+      );
+    }
+  }]);
+
+  return PlayAgain;
+}(_react2.default.Component);
+
+var GameOver = function (_React$Component2) {
+  _inherits(GameOver, _React$Component2);
+
+  function GameOver(props) {
+    _classCallCheck(this, GameOver);
+
+    var _this2 = _possibleConstructorReturn(this, (GameOver.__proto__ || Object.getPrototypeOf(GameOver)).call(this, props));
+
+    _this2.handlePlayAgain = _this2.handlePlayAgain.bind(_this2);
+    return _this2;
+  }
+
+  _createClass(GameOver, [{
+    key: 'handlePlayAgain',
+    value: function handlePlayAgain() {
+      this.props.onPlayAgain();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      if (this.props.won) return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(Winner, { count: this.props.count }),
+        _react2.default.createElement(PlayAgain, { onPlayAgain: this.handlePlayAgain })
+      );else if (this.props.count == 10) return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(Loser, { answer: this.props.answer }),
+        _react2.default.createElement(PlayAgain, { onPlayAgain: this.handlePlayAgain })
+      );else return null;
+    }
+  }]);
+
+  return GameOver;
+}(_react2.default.Component);
 
 exports.default = GameOver;
 
