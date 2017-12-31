@@ -7,14 +7,19 @@ import GameOver from './gameOver'
 class Game extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      guess: [0, 0, 0, 0],
-      guesses: [], // array of 4-number arrays
-      won: false,
-    }
-    this.master = Master()
+    this.state = this.newGameState()
     this.handleGuess = this.handleGuess.bind(this)
     this.handleColorChange = this.handleColorChange.bind(this)
+    this.playAgain = this.playAgain.bind(this)
+  }
+
+  newGameState() {
+    return {
+      guess: [1, 1, 1, 1],
+      guesses: [], // array of 4-number arrays
+      master: Master(),
+      won: false,
+    }
   }
 
   handleGuess() {
@@ -24,8 +29,8 @@ class Game extends React.Component {
     let newGuesses = this.state.guesses
     newGuesses.push(this.state.guess)
     this.setState({ guesses: newGuesses })
-    this.setState({ guess: [0, 0, 0, 0] })
-    this.setState({ won: this.master.check(this.state.guess).toString() == '4,0' })
+    this.setState({ guess: [1, 1, 1, 1] })
+    this.setState({ won: this.state.master.check(this.state.guess).toString() == '4,0' })
   }
 
   handleColorChange(index) {
@@ -36,6 +41,10 @@ class Game extends React.Component {
     this.setState({ guess: newGuess })
   }
 
+  playAgain() {
+    this.setState(this.newGameState())
+  }
+
   render () {
     return (
       <div className='tc'>
@@ -44,8 +53,10 @@ class Game extends React.Component {
           Click the circles to change colors, then click Guess.
           For each dot in the right color and in the right position, a red box
           is shown. For each dot of the right color but in the wrong position,
-          a white dot is shown.
-          <a className='ml2 link white' href='https://en.wikipedia.org/wiki/Mastermind_(board_game)'>Read more</a>
+          a white box is shown.
+          <a className='ml2 link white' href='https://en.wikipedia.org/wiki/Mastermind_(board_game)'>
+            Read more
+          </a>
         </div>
         <div>
           <ColorInput index={0} color={this.state.guess[0]} onColorChange={this.handleColorChange} />
@@ -59,8 +70,12 @@ class Game extends React.Component {
             Guess
           </a>
         </div>
-        <GuessList guesses={this.state.guesses} master={this.master} />
-        <GameOver count={this.state.guesses.length} won={this.state.won} />
+        <GuessList guesses={this.state.guesses} master={this.state.master} />
+        <GameOver
+          count={this.state.guesses.length}
+          won={this.state.won}
+          answer={this.state.master.tell()}
+          onPlayAgain={this.playAgain} />
       </div>
     )
   }

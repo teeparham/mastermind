@@ -1,4 +1,5 @@
 import React from 'react'
+import ColorInput from './colorInput'
 
 const Winner = (props) => {
   return (
@@ -19,23 +20,71 @@ const Winner = (props) => {
 const Loser = (props) => {
   return (
     <div>
-      <h2 className='f1 pv3 bg-yellow dark-gray'>
-        Loser!
-      </h2>
+      <div className='mv4 bg-yellow dark-gray'>
+        <h2 className='f1 mv0 pt3'>
+          Loser!
+        </h2>
+        <h5 className='f4 mt3 mb0 pb4'>
+          The answer was
+        </h5>
+      </div>
+      <ColorInput index={0} color={props.answer[0]} />
+      <ColorInput index={1} color={props.answer[1]} />
+      <ColorInput index={2} color={props.answer[2]} />
+      <ColorInput index={3} color={props.answer[3]} />
     </div>
   )
 }
 
-const GameOver = (props) => {
-  if (props.won)
+class PlayAgain extends React.Component {
+  constructor(props) {
+    super(props)
+    this.handlePlayAgain = this.handlePlayAgain.bind(this)
+  }
+
+  handlePlayAgain() {
+    this.props.onPlayAgain()
+  }
+
+  render() {
     return (
-      <Winner count={props.count} />
+      <div className='mv3'>
+        <a onClick={this.handlePlayAgain}
+          className='pointer f4 dim br-pill ba bw2 ph3 pv3 mb2 ml2 dib dark-red bg-white v-mid' >
+          Play Again
+        </a>
+      </div>
     )
-  else if (props.count == 10)
-    return (
-      <Loser />
-    )
-  else return null
+  }
+}
+
+class GameOver extends React.Component {
+  constructor(props) {
+    super(props)
+    this.handlePlayAgain = this.handlePlayAgain.bind(this)
+  }
+
+  handlePlayAgain() {
+    this.props.onPlayAgain()
+  }
+
+  render() {
+    if (this.props.won)
+      return (
+        <div>
+          <Winner count={this.props.count} />
+          <PlayAgain onPlayAgain={this.handlePlayAgain} />
+        </div>
+      )
+    else if (this.props.count == 10)
+      return (
+        <div>
+          <Loser answer={this.props.answer} />
+          <PlayAgain onPlayAgain={this.handlePlayAgain} />
+        </div>
+      )
+    else return null
+  }
 }
 
 export default GameOver

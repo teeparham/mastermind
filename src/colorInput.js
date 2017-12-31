@@ -8,7 +8,8 @@ class ColorInput extends React.Component {
   }
 
   handleChange() {
-    this.props.onColorChange(this.props.index)
+    if (this.props.onColorChange)
+      this.props.onColorChange(this.props.index)
   }
 
   render() {
