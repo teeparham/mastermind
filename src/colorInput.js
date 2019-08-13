@@ -3,7 +3,7 @@ import colors from './Colors'
 
 class ColorInput extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.handleChange = this.handleChange.bind(this)
   }
 
@@ -13,7 +13,7 @@ class ColorInput extends React.Component {
   }
 
   render() {
-    const color = colors[this.props.color]
+    const color = colors[this.props.color];
     return (
       <a style={{fontSize: 0}}
         className={'pointer br-pill ba bw2 ph4 pv4 mb2 mh1 dib v-mid black bg-' + color}

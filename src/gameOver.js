@@ -1,7 +1,7 @@
 import React from 'react'
 import ColorInput from './ColorInput'
 
-const Winner = (props) => {
+const Winner = () => {
   return (
     <div>
       <h2 className='f1 pv3 bg-pink'>
@@ -15,7 +15,7 @@ const Winner = (props) => {
       </h2>
     </div>
   )
-}
+};
 
 const Loser = (props) => {
   return (
@@ -34,11 +34,11 @@ const Loser = (props) => {
       <ColorInput index={3} color={props.answer[3]} />
     </div>
   )
-}
+};
 
 class PlayAgain extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.handlePlayAgain = this.handlePlayAgain.bind(this)
   }
 
@@ -60,7 +60,7 @@ class PlayAgain extends React.Component {
 
 class GameOver extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.handlePlayAgain = this.handlePlayAgain.bind(this)
   }
 
@@ -75,14 +75,14 @@ class GameOver extends React.Component {
           <Winner count={this.props.count} />
           <PlayAgain onPlayAgain={this.handlePlayAgain} />
         </div>
-      )
-    else if (this.props.count == 10)
+      );
+    else if (this.props.count === 10)
       return (
         <div>
           <Loser answer={this.props.answer} />
           <PlayAgain onPlayAgain={this.handlePlayAgain} />
         </div>
-      )
+      );
     else return null
   }
 }

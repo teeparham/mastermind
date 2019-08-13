@@ -6,14 +6,14 @@ import GameOver from './GameOver'
 
 class Game extends React.Component {
   constructor(props) {
-    super(props)
-    this.state = this.newGameState()
-    this.handleGuess = this.handleGuess.bind(this)
-    this.handleColorChange = this.handleColorChange.bind(this)
-    this.playAgain = this.playAgain.bind(this)
+    super(props);
+    this.state = Game.newGameState();
+    this.handleGuess = this.handleGuess.bind(this);
+    this.handleColorChange = this.handleColorChange.bind(this);
+    this.playAgain = this.playAgain.bind(this);
   }
 
-  newGameState() {
+  static newGameState() {
     return {
       guess: [1, 1, 1, 1],
       guesses: [], // array of 4-number arrays
@@ -23,26 +23,26 @@ class Game extends React.Component {
   }
 
   handleGuess() {
-    if (this.state.guess.indexOf(0) >= 0) return
-    if (this.state.guesses.length == 10) return
-    if (this.state.won) return
-    let newGuesses = this.state.guesses
-    newGuesses.push(this.state.guess)
-    this.setState({ guesses: newGuesses })
-    this.setState({ guess: [1, 1, 1, 1] })
-    this.setState({ won: this.state.master.check(this.state.guess).toString() == '4,0' })
+    if (this.state.guess.indexOf(0) >= 0) return;
+    if (this.state.guesses.length === 10) return;
+    if (this.state.won) return;
+    let newGuesses = this.state.guesses;
+    newGuesses.push(this.state.guess);
+    this.setState({ guesses: newGuesses });
+    this.setState({ guess: [1, 1, 1, 1] });
+    this.setState({ won: this.state.master.check(this.state.guess).toString() === '4,0' })
   }
 
   handleColorChange(index) {
-    let newColor = this.state.guess[index] + 1
-    if (newColor > 6) newColor = 1
-    let newGuess = this.state.guess
-    newGuess.splice(index, 1, newColor)
+    let newColor = this.state.guess[index] + 1;
+    if (newColor > 6) newColor = 1;
+    let newGuess = this.state.guess;
+    newGuess.splice(index, 1, newColor);
     this.setState({ guess: newGuess })
   }
 
   playAgain() {
-    this.setState(this.newGameState())
+    this.setState(Game.newGameState())
   }
 
   render () {

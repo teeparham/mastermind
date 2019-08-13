@@ -969,7 +969,7 @@ var _Random2 = _interopRequireDefault(_Random);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Master() {
-  var answer = Array(4).fill().map(function () {
+  var answer = Array(4).fill(null).map(function () {
     return (0, _Random2.default)(6);
   }),
       count = 0;
@@ -978,7 +978,7 @@ function Master() {
     var rightColors = [];
 
     function exactMatch(i) {
-      return guess[i] == answer[i] ? 1 : 0;
+      return guess[i] === answer[i] ? 1 : 0;
     }
 
     function exactlyRight() {
@@ -992,7 +992,7 @@ function Master() {
     function sameColor(guessIndex, answerIndex) {
       if (exactMatch(answerIndex)) return 0;
       if (rightColors.includes(answerIndex)) return 0;
-      if (guess[guessIndex] == answer[answerIndex]) {
+      if (guess[guessIndex] === answer[answerIndex]) {
         rightColors.push(answerIndex);
         return 1;
       } else return 0;
@@ -1003,7 +1003,7 @@ function Master() {
         return 0;
       }
       var others = [0, 1, 2, 3].filter(function (i) {
-        return i != index;
+        return i !== index;
       });
       return sameColor(index, others[0]) || sameColor(index, others[1]) || sameColor(index, others[2]) || 0;
     }
@@ -18490,13 +18490,13 @@ function Bot() {
       // [ [1,2,3,4], [6,5,4,3], [1,1,1,1], ... ]
   responses = [],
       // [ [0,1], [1,2], [0,0], ...]
-  possible = Array(4).fill().map(function () {
+  possible = Array(4).fill(null).map(function () {
     return [1, 2, 3, 4, 5, 6];
   }),
       unordered = null;
 
   function first() {
-    return Array(4).fill().map(function () {
+    return Array(4).fill(null).map(function () {
       return (0, _Random2.default)(6);
     });
   }
@@ -18518,7 +18518,7 @@ function Bot() {
   }
 
   function candidate() {
-    if (unordered) return shuffle(unordered);else return Array(4).fill().map(function (n, i) {
+    if (unordered) return shuffle(unordered);else return Array(4).fill(null).map(function (n, i) {
       return possible[i][(0, _Random2.default)(possible[i].length) - 1];
     });
   }
@@ -18535,11 +18535,11 @@ function Bot() {
     var lastGuess = guesses[guesses.length - 1],
         lastResponse = responses[responses.length - 1];
 
-    if (!unordered && lastResponse[0] + lastResponse[1] == 0) {
+    if (!unordered && lastResponse[0] + lastResponse[1] === 0) {
       var _loop = function _loop(i) {
         lastGuess.forEach(function (n) {
           possible[i] = possible[i].filter(function (v) {
-            return v != n;
+            return v !== n;
           });
         });
       };
@@ -18550,16 +18550,16 @@ function Bot() {
       for (var i = 0; i < 4; i++) {
         console.log('-- [' + i + '] : ' + possible[i].toString());
       }
-    } else if (lastResponse[0] == 0) {
+    } else if (lastResponse[0] === 0) {
       lastGuess.forEach(function (n, i) {
         possible[i] = possible[i].filter(function (v) {
-          return v != n;
+          return v !== n;
         });
       });
       for (var _i = 0; _i < 4; _i++) {
         console.log('-- [' + _i + '] : ' + possible[_i].toString());
       }
-    } else if (lastResponse[0] + lastResponse[1] == 4) {
+    } else if (lastResponse[0] + lastResponse[1] === 4) {
       unordered = lastGuess;
       console.log('-- unordered = ' + unordered.toString());
     }
@@ -18606,7 +18606,7 @@ function Tester() {
         count = 0,
         guess = void 0;
 
-    while (response.toString() != '4,0' && count < 60) {
+    while (response.toString() !== '4,0' && count < 60) {
       count++;
       guess = player.guess(response);
       console.log('#' + count + ': ' + guess.toString());
@@ -18668,7 +18668,7 @@ var Game = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Game.__proto__ || Object.getPrototypeOf(Game)).call(this, props));
 
-    _this.state = _this.newGameState();
+    _this.state = Game.newGameState();
     _this.handleGuess = _this.handleGuess.bind(_this);
     _this.handleColorChange = _this.handleColorChange.bind(_this);
     _this.playAgain = _this.playAgain.bind(_this);
@@ -18676,26 +18676,16 @@ var Game = function (_React$Component) {
   }
 
   _createClass(Game, [{
-    key: 'newGameState',
-    value: function newGameState() {
-      return {
-        guess: [1, 1, 1, 1],
-        guesses: [], // array of 4-number arrays
-        master: (0, _Master2.default)(),
-        won: false
-      };
-    }
-  }, {
     key: 'handleGuess',
     value: function handleGuess() {
       if (this.state.guess.indexOf(0) >= 0) return;
-      if (this.state.guesses.length == 10) return;
+      if (this.state.guesses.length === 10) return;
       if (this.state.won) return;
       var newGuesses = this.state.guesses;
       newGuesses.push(this.state.guess);
       this.setState({ guesses: newGuesses });
       this.setState({ guess: [1, 1, 1, 1] });
-      this.setState({ won: this.state.master.check(this.state.guess).toString() == '4,0' });
+      this.setState({ won: this.state.master.check(this.state.guess).toString() === '4,0' });
     }
   }, {
     key: 'handleColorChange',
@@ -18709,7 +18699,7 @@ var Game = function (_React$Component) {
   }, {
     key: 'playAgain',
     value: function playAgain() {
-      this.setState(this.newGameState());
+      this.setState(Game.newGameState());
     }
   }, {
     key: 'render',
@@ -18750,6 +18740,16 @@ var Game = function (_React$Component) {
           answer: this.state.master.tell(),
           onPlayAgain: this.playAgain })
       );
+    }
+  }], [{
+    key: 'newGameState',
+    value: function newGameState() {
+      return {
+        guess: [1, 1, 1, 1],
+        guesses: [], // array of 4-number arrays
+        master: (0, _Master2.default)(),
+        won: false
+      };
     }
   }]);
 
@@ -18890,7 +18890,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Winner = function Winner(props) {
+var Winner = function Winner() {
   return _react2.default.createElement(
     'div',
     null,
@@ -19022,7 +19022,7 @@ var GameOver = function (_React$Component2) {
         null,
         _react2.default.createElement(Winner, { count: this.props.count }),
         _react2.default.createElement(PlayAgain, { onPlayAgain: this.handlePlayAgain })
-      );else if (this.props.count == 10) return _react2.default.createElement(
+      );else if (this.props.count === 10) return _react2.default.createElement(
         'div',
         null,
         _react2.default.createElement(Loser, { answer: this.props.answer }),

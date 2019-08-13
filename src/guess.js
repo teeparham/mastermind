@@ -7,7 +7,7 @@ const Dot = (props) => {
     &nbsp;
     </div>
   )
-}
+};
 
 const Cue = (props) => {
   return (
@@ -15,20 +15,20 @@ const Cue = (props) => {
     &nbsp;
     </div>
   )
-}
+};
 
 const CueList = (props) => {
   return (
     [...Array(props.n)].map((e, i) => <Cue color={props.color} key={i} />)
   )
-}
+};
 
 const Guess = (props) => {
-  let guess = props.guess
-  let check = props.master.check(guess)
-  let right = check[0]
-  let rightColor = check[1]
-  let wrong = 4 - right - rightColor
+  let guess = props.guess;
+  let check = props.master.check(guess);
+  let right = check[0];
+  let rightColor = check[1];
+  let wrong = 4 - right - rightColor;
 
   return (
     <div>
@@ -43,6 +43,6 @@ const Guess = (props) => {
       <CueList n={right} color='1' />
     </div>
   )
-}
+};
 
 export default Guess
