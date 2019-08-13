@@ -1,5 +1,5 @@
 import React from 'react'
-import colors from './colors'
+import colors from './Colors'
 
 const Dot = (props) => {
   return (

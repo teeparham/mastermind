@@ -1,8 +1,8 @@
 import React from 'react'
-import Master from './master'
-import ColorInput from './colorInput'
-import GuessList from './guessList'
-import GameOver from './gameOver'
+import Master from './Master'
+import ColorInput from './ColorInput'
+import GuessList from './GuessList'
+import GameOver from './GameOver'
 
 class Game extends React.Component {
   constructor(props) {

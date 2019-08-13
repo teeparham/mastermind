@@ -1,4 +1,4 @@
-import random from './random'
+import random from './Random'
 
 export default function Master () {
   let answer = Array(4).fill().map( () => random(6) ),

@@ -1,5 +1,5 @@
 import React from 'react'
-import ColorInput from './colorInput'
+import ColorInput from './ColorInput'
 
 const Winner = (props) => {
   return (

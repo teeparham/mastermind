@@ -1,5 +1,5 @@
 import React from 'react'
-import Guess from './guess'
+import Guess from './Guess'
 
 const GuessList = (props) => {
   const items = props.guesses.map((guess, index) =>

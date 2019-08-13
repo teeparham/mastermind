@@ -1,4 +1,4 @@
-import Master from './master'
+import Master from './Master'
 
 export default function Tester () {
   const master = Master()

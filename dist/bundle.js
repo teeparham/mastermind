@@ -962,15 +962,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Master;
 
-var _random = __webpack_require__(14);
+var _Random = __webpack_require__(14);
 
-var _random2 = _interopRequireDefault(_random);
+var _Random2 = _interopRequireDefault(_Random);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Master() {
   var answer = Array(4).fill().map(function () {
-    return (0, _random2.default)(6);
+    return (0, _Random2.default)(6);
   }),
       count = 0;
 
@@ -1053,9 +1053,9 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _colors = __webpack_require__(17);
+var _Colors = __webpack_require__(17);
 
-var _colors2 = _interopRequireDefault(_colors);
+var _Colors2 = _interopRequireDefault(_Colors);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1085,7 +1085,7 @@ var ColorInput = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var color = _colors2.default[this.props.color];
+      var color = _Colors2.default[this.props.color];
       return _react2.default.createElement(
         'a',
         { style: { fontSize: 0 },
@@ -18479,9 +18479,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Bot;
 
-var _random = __webpack_require__(14);
+var _Random = __webpack_require__(14);
 
-var _random2 = _interopRequireDefault(_random);
+var _Random2 = _interopRequireDefault(_Random);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -18497,7 +18497,7 @@ function Bot() {
 
   function first() {
     return Array(4).fill().map(function () {
-      return (0, _random2.default)(6);
+      return (0, _Random2.default)(6);
     });
   }
 
@@ -18519,7 +18519,7 @@ function Bot() {
 
   function candidate() {
     if (unordered) return shuffle(unordered);else return Array(4).fill().map(function (n, i) {
-      return possible[i][(0, _random2.default)(possible[i].length) - 1];
+      return possible[i][(0, _Random2.default)(possible[i].length) - 1];
     });
   }
 
@@ -18592,14 +18592,14 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Tester;
 
-var _master = __webpack_require__(15);
+var _Master = __webpack_require__(15);
 
-var _master2 = _interopRequireDefault(_master);
+var _Master2 = _interopRequireDefault(_Master);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Tester() {
-  var master = (0, _master2.default)();
+  var master = (0, _Master2.default)();
 
   function run(player) {
     var response = [0, 0],
@@ -18636,21 +18636,21 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _master = __webpack_require__(15);
+var _Master = __webpack_require__(15);
 
-var _master2 = _interopRequireDefault(_master);
+var _Master2 = _interopRequireDefault(_Master);
 
-var _colorInput = __webpack_require__(16);
+var _ColorInput = __webpack_require__(16);
 
-var _colorInput2 = _interopRequireDefault(_colorInput);
+var _ColorInput2 = _interopRequireDefault(_ColorInput);
 
-var _guessList = __webpack_require__(34);
+var _GuessList = __webpack_require__(34);
 
-var _guessList2 = _interopRequireDefault(_guessList);
+var _GuessList2 = _interopRequireDefault(_GuessList);
 
-var _gameOver = __webpack_require__(36);
+var _GameOver = __webpack_require__(36);
 
-var _gameOver2 = _interopRequireDefault(_gameOver);
+var _GameOver2 = _interopRequireDefault(_GameOver);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -18681,7 +18681,7 @@ var Game = function (_React$Component) {
       return {
         guess: [1, 1, 1, 1],
         guesses: [], // array of 4-number arrays
-        master: (0, _master2.default)(),
+        master: (0, _Master2.default)(),
         won: false
       };
     }
@@ -18730,10 +18730,10 @@ var Game = function (_React$Component) {
         _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement(_colorInput2.default, { index: 0, color: this.state.guess[0], onColorChange: this.handleColorChange }),
-          _react2.default.createElement(_colorInput2.default, { index: 1, color: this.state.guess[1], onColorChange: this.handleColorChange }),
-          _react2.default.createElement(_colorInput2.default, { index: 2, color: this.state.guess[2], onColorChange: this.handleColorChange }),
-          _react2.default.createElement(_colorInput2.default, { index: 3, color: this.state.guess[3], onColorChange: this.handleColorChange }),
+          _react2.default.createElement(_ColorInput2.default, { index: 0, color: this.state.guess[0], onColorChange: this.handleColorChange }),
+          _react2.default.createElement(_ColorInput2.default, { index: 1, color: this.state.guess[1], onColorChange: this.handleColorChange }),
+          _react2.default.createElement(_ColorInput2.default, { index: 2, color: this.state.guess[2], onColorChange: this.handleColorChange }),
+          _react2.default.createElement(_ColorInput2.default, { index: 3, color: this.state.guess[3], onColorChange: this.handleColorChange }),
           _react2.default.createElement('div', { className: 'mh2 dib' }),
           _react2.default.createElement(
             'a',
@@ -18743,8 +18743,8 @@ var Game = function (_React$Component) {
             'Guess'
           )
         ),
-        _react2.default.createElement(_guessList2.default, { guesses: this.state.guesses, master: this.state.master }),
-        _react2.default.createElement(_gameOver2.default, {
+        _react2.default.createElement(_GuessList2.default, { guesses: this.state.guesses, master: this.state.master }),
+        _react2.default.createElement(_GameOver2.default, {
           count: this.state.guesses.length,
           won: this.state.won,
           answer: this.state.master.tell(),
@@ -18773,15 +18773,15 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _guess = __webpack_require__(35);
+var _Guess = __webpack_require__(35);
 
-var _guess2 = _interopRequireDefault(_guess);
+var _Guess2 = _interopRequireDefault(_Guess);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var GuessList = function GuessList(props) {
   var items = props.guesses.map(function (guess, index) {
-    return _react2.default.createElement(_guess2.default, { guess: guess, key: index, master: props.master });
+    return _react2.default.createElement(_Guess2.default, { guess: guess, key: index, master: props.master });
   });
   return _react2.default.createElement(
     'div',
@@ -18807,9 +18807,9 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _colors = __webpack_require__(17);
+var _Colors = __webpack_require__(17);
 
-var _colors2 = _interopRequireDefault(_colors);
+var _Colors2 = _interopRequireDefault(_Colors);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -18818,7 +18818,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 var Dot = function Dot(props) {
   return _react2.default.createElement(
     'div',
-    { className: 'br-pill ba bw2 ph3 pv2 mb2 mh3 dib v-mid black bg-' + _colors2.default[props.color] },
+    { className: 'br-pill ba bw2 ph3 pv2 mb2 mh3 dib v-mid black bg-' + _Colors2.default[props.color] },
     '\xA0'
   );
 };
@@ -18826,7 +18826,7 @@ var Dot = function Dot(props) {
 var Cue = function Cue(props) {
   return _react2.default.createElement(
     'div',
-    { className: 'ba bw2 ph2 mb2 mh1 dib v-mid black bg-' + _colors2.default[props.color] },
+    { className: 'ba bw2 ph2 mb2 mh1 dib v-mid black bg-' + _Colors2.default[props.color] },
     '\xA0'
   );
 };
@@ -18878,9 +18878,9 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _colorInput = __webpack_require__(16);
+var _ColorInput = __webpack_require__(16);
 
-var _colorInput2 = _interopRequireDefault(_colorInput);
+var _ColorInput2 = _interopRequireDefault(_ColorInput);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -18954,10 +18954,10 @@ var Loser = function Loser(props) {
         'The answer was'
       )
     ),
-    _react2.default.createElement(_colorInput2.default, { index: 0, color: props.answer[0] }),
-    _react2.default.createElement(_colorInput2.default, { index: 1, color: props.answer[1] }),
-    _react2.default.createElement(_colorInput2.default, { index: 2, color: props.answer[2] }),
-    _react2.default.createElement(_colorInput2.default, { index: 3, color: props.answer[3] })
+    _react2.default.createElement(_ColorInput2.default, { index: 0, color: props.answer[0] }),
+    _react2.default.createElement(_ColorInput2.default, { index: 1, color: props.answer[1] }),
+    _react2.default.createElement(_ColorInput2.default, { index: 2, color: props.answer[2] }),
+    _react2.default.createElement(_ColorInput2.default, { index: 3, color: props.answer[3] })
   );
 };
 
