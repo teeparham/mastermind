@@ -1,3 +1,5 @@
 # Mastermind
 
-Play at https://teeparham.github.io/mastermind/
+This project is archived. See https://github.com/teeparham/next for updated code.
+
+Play at https://teeparham.vercel.app/
